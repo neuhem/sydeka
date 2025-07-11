@@ -1,0 +1,94 @@
+/* Component-specific styles */
+
+/* Hero Section */
+.hero-welcome-message {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.hero-welcome-text {
+  color: #6ee7b7;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar-user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-welcome-text {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.navbar-auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navbar-signout-btn {
+  background: rgba(239, 68, 68, 0.8);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Math Formula Display */
+.math-formula-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.math-formula-item {
+  margin-bottom: 1rem;
+}
+
+/* Footer Styles */
+.footer-section {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.footer-title {
+  color: #f1f5f9;
+}
+
+.footer-text {
+  color: #cbd5e1;
+}
+
+.footer-link {
+  color: #cbd5e1;
+}
+
+.footer-link:hover {
+  color: #3b82f6;
+}
+
+.footer-divider {
+  border-top: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.footer-copyright {
+  color: #94a3b8;
+}
+
+/* Loading states */
+.loading-btn {
+  opacity: 0.6;
+}
+
+/* AI Section Background */
+.ai-section-bg {
+  background: #f8fafc;
+}

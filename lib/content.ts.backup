@@ -1,0 +1,67 @@
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+
+export interface LessonMeta {
+  title: string
+  subject: string
+  level: string
+  prerequisites: string[]
+  estimatedTime: number
+  tags: string[]
+}
+
+export interface Lesson {
+  slug: string
+  meta: LessonMeta
+  content: string
+}
+
+const contentDirectory = path.join(process.cwd(), '..', 'content')
+
+export function getAllLessons(): Lesson[] {
+  const lessonsDirectory = path.join(contentDirectory, 'lessons')
+  
+  if (!fs.existsSync(lessonsDirectory)) {
+    return []
+  }
+
+  const fileNames = fs.readdirSync(lessonsDirectory)
+  const lessons = fileNames
+    .filter(name => name.endsWith('.md'))
+    .map(fileName => {
+      const slug = fileName.replace(/\.md$/, '')
+      const fullPath = path.join(lessonsDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const { data, content } = matter(fileContents)
+
+      return {
+        slug,
+        meta: data as LessonMeta,
+        content,
+      }
+    })
+
+  return lessons.sort((a, b) => a.meta.title.localeCompare(b.meta.title))
+}
+
+export function getLessonBySlug(slug: string): Lesson | null {
+  try {
+    const fullPath = path.join(contentDirectory, 'lessons', `${slug}.md`)
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { data, content } = matter(fileContents)
+
+    return {
+      slug,
+      meta: data as LessonMeta,
+      content,
+    }
+  } catch (error) {
+    return null
+  }
+}
+
+export function getLessonsBySubject(subject: string): Lesson[] {
+  const allLessons = getAllLessons()
+  return allLessons.filter(lesson => lesson.meta.subject === subject)
+} 
