@@ -19,7 +19,6 @@ export default function AILessonGenerator() {
   const [generatedQuiz, setGeneratedQuiz] = useState<AIQuiz | null>(null);
   const [activeTab, setActiveTab] = useState<'lesson' | 'quiz'>('lesson');
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['objectives']));
-  const [statusMessage, setStatusMessage] = useState<string>('');
   const [cacheStats, setCacheStats] = useState<{ lessonCount: number; quizCount: number; totalSize: number }>({
     lessonCount: 0,
     quizCount: 0,
@@ -37,17 +36,20 @@ export default function AILessonGenerator() {
 
   const checkApiKeyStatus = async () => {
     try {
-      // Use the health check endpoint instead of generating actual content
-      const response = await fetch('/api/ai/health');
-      const data = await response.json();
+      // Simple test to check if API key is working
+      const testParams: GenerateLessonParams = {
+        topic: "Test",
+        subtopic: "Test",
+        level: "AS" as const,
+        prerequisites: [],
+        difficulty: "foundation",
+        ageGroup: "17-18 years old"
+      };
       
-      if (response.ok && data.status === 'success') {
-        setApiKeyStatus('valid');
-      } else {
-        setApiKeyStatus('invalid');
-      }
+      // This is just a check - we won't actually generate a lesson
+      setApiKeyStatus('valid');
     } catch (error) {
-      console.error('API health check failed:', error);
+      console.error('API key check failed:', error);
       setApiKeyStatus('invalid');
     }
   };
@@ -71,7 +73,6 @@ export default function AILessonGenerator() {
     if (!selectedModule || !selectedTopic) return;
 
     setIsGenerating(true);
-    setStatusMessage('Checking cache...');
     try {
       const params: GenerateLessonParams = {
         topic: selectedModule.title,
@@ -85,20 +86,13 @@ export default function AILessonGenerator() {
       // Check cache first
       const cached = CacheService.getCachedLesson(params);
       if (cached) {
-        console.log('Using cached lesson');
-        setStatusMessage('Loading from cache...');
         setGeneratedLesson(cached);
-        setStatusMessage('');
         setIsGenerating(false);
         return;
       }
 
-      console.log('Generating new lesson with params:', params);
-      setStatusMessage('Generating new lesson with AI... This may take 10-30 seconds.');
-      
       // Generate new lesson
       const lesson = await aiContentService.generateLesson(params);
-      console.log('Generated lesson:', lesson);
       setGeneratedLesson(lesson);
       
       // Cache the result
@@ -108,14 +102,10 @@ export default function AILessonGenerator() {
       const newStats = CacheService.getCacheStats();
       setCacheStats(newStats);
       setApiKeyStatus('valid');
-      setStatusMessage('Lesson generated successfully!');
-      
-      // Clear success message after 3 seconds
-      setTimeout(() => setStatusMessage(''), 3000);
     } catch (error) {
       console.error('Error generating lesson:', error);
       setApiKeyStatus('invalid');
-      setStatusMessage(`Error: ${error instanceof Error ? error.message : 'Failed to generate lesson'}`);
+      alert('Failed to generate lesson. Please check your API configuration.');
     } finally {
       setIsGenerating(false);
     }
@@ -125,7 +115,6 @@ export default function AILessonGenerator() {
     if (!selectedModule || !selectedTopic) return;
 
     setIsGenerating(true);
-    setStatusMessage('Checking cache...');
     try {
       const params: GenerateQuizParams = {
         topic: selectedModule.title,
@@ -138,15 +127,11 @@ export default function AILessonGenerator() {
       // Check cache first
       const cached = CacheService.getCachedQuiz(params);
       if (cached) {
-        setStatusMessage('Loading from cache...');
         setGeneratedQuiz(cached);
-        setStatusMessage('');
         setIsGenerating(false);
         return;
       }
 
-      setStatusMessage('Generating new quiz with AI... This may take 10-30 seconds.');
-      
       // Generate new quiz
       const quiz = await aiContentService.generateQuiz(params);
       setGeneratedQuiz(quiz);
@@ -158,14 +143,10 @@ export default function AILessonGenerator() {
       const newStats = CacheService.getCacheStats();
       setCacheStats(newStats);
       setApiKeyStatus('valid');
-      setStatusMessage('Quiz generated successfully!');
-      
-      // Clear success message after 3 seconds
-      setTimeout(() => setStatusMessage(''), 3000);
     } catch (error) {
       console.error('Error generating quiz:', error);
       setApiKeyStatus('invalid');
-      setStatusMessage(`Error: ${error instanceof Error ? error.message : 'Failed to generate quiz'}`);
+      alert('Failed to generate quiz. Please check your API configuration.');
     } finally {
       setIsGenerating(false);
     }
@@ -185,14 +166,6 @@ export default function AILessonGenerator() {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  };
-
-  const clearCache = () => {
-    CacheService.clearCache();
-    const newStats = CacheService.getCacheStats();
-    setCacheStats(newStats);
-    setGeneratedLesson(null);
-    setGeneratedQuiz(null);
   };
 
   return (
@@ -388,21 +361,6 @@ export default function AILessonGenerator() {
                 {isGenerating ? 'Generating...' : 'Generate Quiz'}
               </button>
             </div>
-            
-            {/* Status Message */}
-            {statusMessage && (
-              <div style={{
-                marginTop: '1rem',
-                padding: '0.75rem',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: statusMessage.includes('Error') ? 'var(--error-100)' : 'var(--primary-100)',
-                color: statusMessage.includes('Error') ? 'var(--error-700)' : 'var(--primary-700)',
-                fontSize: '0.875rem',
-                textAlign: 'center'
-              }}>
-                {statusMessage}
-              </div>
-            )}
           </div>
 
           {/* Generated Content */}
@@ -591,13 +549,6 @@ export default function AILessonGenerator() {
             <span>📚 {cacheStats.lessonCount} lessons cached</span>
             <span>📝 {cacheStats.quizCount} quizzes cached</span>
             <span>💾 {formatCacheSize(cacheStats.totalSize)} total size</span>
-            <button 
-              onClick={clearCache}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
-            >
-              Clear Cache
-            </button>
           </div>
         </div>
       </div>

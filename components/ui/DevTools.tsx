@@ -29,24 +29,75 @@ const DevTools: React.FC = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg opacity-75 hover:opacity-100 transition-opacity">
-      <h3 className="text-sm font-bold mb-2">Dev Tools</h3>
-      <div className="flex flex-col gap-2">
+    <div style={{
+      position: 'fixed',
+      bottom: '1rem',
+      right: '1rem',
+      backgroundColor: 'var(--bg-secondary)',
+      color: 'var(--text-primary)',
+      padding: '1rem',
+      borderRadius: 'var(--radius-lg)',
+      boxShadow: 'var(--shadow-lg)',
+      opacity: '0.75',
+      transition: 'opacity 0.3s ease'
+    }} 
+    onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+    onMouseLeave={(e) => e.currentTarget.style.opacity = '0.75'}>
+      <h3 style={{
+        fontSize: '0.875rem',
+        fontWeight: 'bold',
+        marginBottom: '0.5rem',
+        color: 'var(--text-primary)'
+      }}>Dev Tools</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <button 
           onClick={handleClearCache}
-          className="text-xs bg-red-600 hover:bg-red-700 px-2 py-1 rounded"
+          style={{
+            fontSize: '0.75rem',
+            backgroundColor: 'var(--bg-accent)',
+            color: 'white',
+            padding: '0.25rem 0.5rem',
+            borderRadius: 'var(--radius-sm)',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-accent-hover)'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-accent)'}
         >
           Clear Cache
         </button>
         <button 
           onClick={handleClearProgress}
-          className="text-xs bg-yellow-600 hover:bg-yellow-700 px-2 py-1 rounded"
+          style={{
+            fontSize: '0.75rem',
+            backgroundColor: '#d97706',
+            color: 'white',
+            padding: '0.25rem 0.5rem',
+            borderRadius: 'var(--radius-sm)',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f59e0b'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#d97706'}
         >
           Clear Progress
         </button>
         <button 
           onClick={handleClearAll}
-          className="text-xs bg-purple-600 hover:bg-purple-700 px-2 py-1 rounded"
+          style={{
+            fontSize: '0.75rem',
+            backgroundColor: '#7c3aed',
+            color: 'white',
+            padding: '0.25rem 0.5rem',
+            borderRadius: 'var(--radius-sm)',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#8b5cf6'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#7c3aed'}
         >
           Clear All
         </button>

@@ -3,7 +3,10 @@ import path from 'path'
 import matter from 'gray-matter'
 import { Lesson, Quiz, LessonMeta } from '@/types'
 
-const contentDirectory = path.join(process.cwd(), '..', 'content')
+// Re-export types for convenience
+export type { Lesson, Quiz, LessonMeta } from '@/types'
+
+const contentDirectory = path.join(process.cwd(), 'content')
 
 // Recursively find all markdown files in a directory
 function findMarkdownFiles(dir: string, baseDir: string = dir): string[] {
@@ -51,9 +54,15 @@ export function getAllLessons(): Lesson[] {
       const fileContents = fs.readFileSync(filePath, 'utf8')
       const { data, content } = matter(fileContents)
 
+      // Handle the case where frontmatter uses 'topics' instead of 'tags'
+      const meta = {
+        ...data,
+        tags: data.tags || data.topics || []
+      } as LessonMeta
+
       return {
         slug,
-        meta: data as LessonMeta,
+        meta,
         content,
         filePath,
       }

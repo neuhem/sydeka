@@ -1,17 +1,21 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useAuth } from "@/lib/auth-context";
-import { useThemeContext } from "@/lib/theme-context";
+import { useRouter } from "next/navigation";
 import { APP_CONFIG, NAVIGATION_LINKS } from "@/lib/constants";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, signOut, loading } = useAuth();
-  const { theme, toggleTheme, isInitialized } = useThemeContext();
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to lessons page with search query
+      router.push(`/lessons?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
   };
 
   return (
@@ -28,38 +32,22 @@ export default function Navbar() {
             </Link>
           ))}
           
-          {/* Theme Toggle */}
-          {isInitialized && (
-            <button
-              onClick={toggleTheme}
-              className="theme-toggle"
-              aria-label="Toggle theme"
-              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-            >
-              {theme === 'light' ? '🌙' : '☀️'}
+          {/* Search Form */}
+          <form onSubmit={handleSearch} className="search-form">
+            <input
+              type="text"
+              placeholder="Search topics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+            <button type="submit" className="search-btn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
             </button>
-          )}
-          
-          {loading ? (
-            <div className="btn btn-secondary">Loading...</div>
-          ) : user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-                Welcome, {user.user_metadata?.name || user.email}
-              </span>
-              <button 
-                onClick={handleSignOut}
-                className="btn btn-secondary"
-              >
-                Sign Out
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <Link href="/signin" className="btn btn-secondary">Sign In</Link>
-              <Link href="/signup" className="btn btn-primary">Sign Up</Link>
-            </div>
-          )}
+          </form>
         </div>
 
         <button 
@@ -68,6 +56,33 @@ export default function Navbar() {
         >
           ≡
         </button>
+        
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="mobile-menu">
+            <form onSubmit={handleSearch} className="search-form mobile-search">
+              <input
+                type="text"
+                placeholder="Search topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+              <button type="submit" className="search-btn" aria-label="Search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </button>
+            </form>
+            
+            {NAVIGATION_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="mobile-nav-link" onClick={() => setMenuOpen(false)}>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

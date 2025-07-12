@@ -2,8 +2,6 @@ import { AILesson, AIQuiz, GenerateLessonParams, GenerateQuizParams } from '@/ty
 
 export class AIContentService {
   async generateLesson(params: GenerateLessonParams): Promise<AILesson> {
-    console.log('Generating lesson with params:', params);
-    
     const response = await fetch('/api/ai/generate-lesson', {
       method: 'POST',
       headers: {
@@ -14,18 +12,13 @@ export class AIContentService {
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('API Error:', error);
-      throw new Error(error.error || `Failed to generate lesson: ${response.status} ${response.statusText}`);
+      throw new Error(error.error || 'Failed to generate lesson');
     }
 
-    const lesson = await response.json();
-    console.log('Lesson generated successfully:', lesson.title);
-    return lesson;
+    return await response.json();
   }
 
   async generateQuiz(params: GenerateQuizParams): Promise<AIQuiz> {
-    console.log('Generating quiz with params:', params);
-    
     const response = await fetch('/api/ai/generate-quiz', {
       method: 'POST',
       headers: {
@@ -36,13 +29,10 @@ export class AIContentService {
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('API Error:', error);
-      throw new Error(error.error || `Failed to generate quiz: ${response.status} ${response.statusText}`);
+      throw new Error(error.error || 'Failed to generate quiz');
     }
 
-    const quiz = await response.json();
-    console.log('Quiz generated successfully:', quiz.title);
-    return quiz;
+    return await response.json();
   }
 
   async generateExplanation(

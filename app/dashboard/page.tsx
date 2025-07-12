@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/lib/auth-context';
-import { withAuth } from '@/lib/with-auth';
 import { ProgressService } from '@/lib/progress-service';
 import { AQA_A_LEVEL_MATHEMATICS_CURRICULUM } from '@/lib/curriculum';
 import { 
@@ -23,7 +21,6 @@ import {
 } from 'lucide-react';
 
 function Dashboard() {
-  const { user } = useAuth();
   const [progress, setProgress] = useState<any>(null);
   const [overallStats, setOverallStats] = useState<any>(null);
   const [analytics, setAnalytics] = useState<any>(null);
@@ -92,7 +89,7 @@ function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Learning Dashboard</h1>
-              <p className="text-gray-600 mt-2">Welcome back, {user?.user_metadata?.name || user?.email}!</p>
+              <p className="text-gray-600 mt-2">Welcome back! Track your learning progress.</p>
             </div>
             <div className="flex gap-3">
               <button
@@ -376,4 +373,4 @@ function Dashboard() {
   );
 }
 
-export default withAuth(Dashboard); 
+export default Dashboard; 

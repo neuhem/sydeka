@@ -3,10 +3,6 @@
  */
 
 export const env = {
-  // Supabase configuration
-  SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-  
   // AI Service configuration
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
   
@@ -20,12 +16,11 @@ export const env = {
  */
 export function validateEnv(): void {
   const requiredVars = [
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+    'GEMINI_API_KEY',
   ] as const
 
   const missing = requiredVars.filter(
-    (varName) => !process.env[varName] || process.env[varName] === 'https://placeholder.supabase.co'
+    (varName) => !process.env[varName]
   )
 
   if (missing.length > 0) {
@@ -34,17 +29,6 @@ export function validateEnv(): void {
       'Some features may not work correctly.'
     )
   }
-}
-
-/**
- * Check if Supabase is properly configured
- */
-export function isSupabaseConfigured(): boolean {
-  return !!(
-    env.SUPABASE_URL &&
-    env.SUPABASE_ANON_KEY &&
-    env.SUPABASE_URL !== 'https://placeholder.supabase.co'
-  )
 }
 
 /**

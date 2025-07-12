@@ -1,15 +1,16 @@
 # Sydeka - AI-Powered Learning Platform
 
-This is a [Next.js](https://nextjs.org) project for Sydeka, an AI-powered learning platform that makes world-class knowledge accessible to everyone.
+This is a [Next.js](https://nextjs.org) project for Sydeka, a free and open-source AI-powered learning platform that makes world-class knowledge accessible to everyone.
 
 ## 🚀 Features
 
 - **AI-Generated Content**: Dynamic lesson generation using Google Gemini AI
 - **Interactive Learning**: Practice problems with parameterized variables
 - **MathJax Support**: Full LaTeX math rendering for mathematical expressions
-- **Progress Tracking**: Track lesson completion and quiz scores
-- **Responsive Design**: Modern UI that works on all devices
+- **Progress Tracking**: Track lesson completion and quiz scores (local storage)
+- **Responsive Design**: Modern dark theme UI that works on all devices
 - **Module Navigation**: Seamless navigation between modules and lessons
+- **Free & Open Source**: No authentication required - completely free to use
 
 ## 📚 Course Structure
 
@@ -35,11 +36,9 @@ npm install
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and add your API keys:
+Edit `.env.local` and add your API key:
 ```bash
 GEMINI_API_KEY=your_gemini_api_key_here
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 4. **Run the development server**:
@@ -85,10 +84,10 @@ sydeka/
 
 - **Framework**: Next.js 15
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: Custom CSS with CSS Variables (Dark Theme)
 - **AI**: Google Generative AI
 - **Math**: MathJax
-- **Database**: Supabase (optional)
+- **Storage**: Local Storage (no database required)
 
 ## 🎨 Key Components
 
@@ -97,7 +96,7 @@ The main learning interface featuring:
 - AI-generated lesson content
 - Interactive practice problems
 - Mathematical expressions with LaTeX
-- Progress tracking
+- Progress tracking (local storage)
 - Quiz integration
 
 ### HomePage

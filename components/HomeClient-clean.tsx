@@ -2,16 +2,51 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { AS_MODULES, A2_MODULES } from "@/lib/constants";
 
 export default function HomeClient() {
   const [selectedYear, setSelectedYear] = useState<'AS' | 'A2'>('AS');
-  const router = useRouter();
 
   const courseModules = {
-    AS: AS_MODULES,
-    A2: A2_MODULES
+    AS: [
+      {
+        number: 1,
+        title: "Algebra & Functions",
+        description: "Laws of indices, surds, quadratics, inequalities, sketching curves",
+        progress: 0
+      },
+      {
+        number: 2,
+        title: "Coordinate Geometry",
+        description: "Straight lines, circles, parametric equations",
+        progress: 0
+      },
+      {
+        number: 3,
+        title: "Sequences & Series",
+        description: "Arithmetic and geometric progressions, binomial expansion",
+        progress: 0
+      }
+    ],
+    A2: [
+      {
+        number: 1,
+        title: "Further Algebra",
+        description: "Partial fractions, complex numbers, matrices",
+        progress: 0
+      },
+      {
+        number: 2,
+        title: "Advanced Calculus",
+        description: "Integration techniques, differential equations",
+        progress: 0
+      },
+      {
+        number: 3,
+        title: "Vectors & Statistics",
+        description: "3D vectors, hypothesis testing, correlation",
+        progress: 0
+      }
+    ]
   };
 
   return (
@@ -98,11 +133,6 @@ export default function HomeClient() {
             <input
               type="text"
               placeholder="Search for a topic (e.g., 'calculus', 'vectors')..."
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.currentTarget.value) {
-                  window.location.href = `/lessons?search=${encodeURIComponent(e.currentTarget.value)}`;
-                }
-              }}
               style={{
                 width: '100%',
                 padding: '1rem 1rem 1rem 3rem',
@@ -185,7 +215,7 @@ export default function HomeClient() {
         }}>
           {courseModules[selectedYear].map((module) => (
             <div
-              key={module.id}
+              key={module.number}
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 border: '1px solid var(--border-primary)',
@@ -203,27 +233,14 @@ export default function HomeClient() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  margin: 0
-                }}>
-                  {module.title}
-                </h3>
-                <span style={{ 
-                  backgroundColor: module.level === 'AS' ? 'rgba(255, 59, 48, 0.1)' : 'rgba(255, 59, 48, 0.2)',
-                  color: 'var(--bg-accent)',
-                  padding: '0.25rem 0.5rem',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: '0.75rem',
-                  fontWeight: '600'
-                }}>
-                  {module.level}
-                </span>
-              </div>
-              
+              <h3 style={{
+                fontSize: '1.25rem',
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '0.5rem'
+              }}>
+                {module.number}. {module.title}
+              </h3>
               <p style={{
                 color: 'var(--text-secondary)',
                 marginBottom: '1.5rem',
@@ -231,97 +248,31 @@ export default function HomeClient() {
               }}>
                 {module.description}
               </p>
-
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ 
-                  color: 'var(--text-primary)', 
-                  marginBottom: '0.5rem', 
-                  fontSize: '0.875rem',
-                  fontWeight: '600'
-                }}>
-                  Topics:
-                </h4>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  {module.topics.map((topic, topicIndex) => (
-                    <span key={topicIndex} style={{
-                      backgroundColor: 'var(--bg-tertiary)',
-                      color: 'var(--text-secondary)',
-                      padding: '0.25rem 0.5rem',
-                      borderRadius: 'var(--radius-sm)',
-                      fontSize: '0.75rem'
-                    }}>
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '1rem'
+                alignItems: 'center'
               }}>
                 <span style={{
                   color: 'var(--text-muted)',
                   fontSize: '0.9rem'
                 }}>
-                  ~{module.estimatedDuration} hours
+                  {module.progress}% Complete
                 </span>
-              </div>
-
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/modules/${module.id}`);
-                  }}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    backgroundColor: 'transparent',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: 'var(--radius-sm)',
-                    color: 'var(--text-secondary)',
-                    fontSize: '0.875rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--border-accent)';
-                    e.currentTarget.style.color = 'var(--text-primary)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--border-primary)';
-                    e.currentTarget.style.color = 'var(--text-secondary)';
-                  }}
-                >
-                  View Details
-                </button>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/lessons?module=${module.id}`);
-                  }}
-                  style={{
-                    padding: '0.5rem 1rem',
+                <div style={{
+                  width: '100px',
+                  height: '4px',
+                  backgroundColor: 'var(--bg-tertiary)',
+                  borderRadius: '2px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: `${module.progress}%`,
+                    height: '100%',
                     backgroundColor: 'var(--bg-accent)',
-                    border: 'none',
-                    borderRadius: 'var(--radius-sm)',
-                    color: 'white',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--bg-accent-hover)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--bg-accent)';
-                  }}
-                >
-                  Start Learning
-                </button>
+                    transition: 'width 0.3s ease'
+                  }} />
+                </div>
               </div>
             </div>
           ))}

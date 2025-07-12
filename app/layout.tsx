@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals-clean.css'
+import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer-new'
 import DevTools from '@/components/ui/DevTools'
-import { AuthProvider } from '@/lib/auth-context'
-import { ThemeProvider } from '@/lib/theme-context'
 import { APP_CONFIG } from '@/lib/constants'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -33,14 +31,15 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Set theme immediately to prevent flash
+              // Set black theme immediately
               (function() {
                 try {
-                  const theme = localStorage.getItem('sydeka-theme') || 
-                    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                  document.documentElement.setAttribute('data-theme', theme);
+                  // Force black theme - remove data-theme attribute to use root CSS variables
+                  document.documentElement.removeAttribute('data-theme');
+                  document.body.style.backgroundColor = '#000000';
+                  document.body.style.color = '#ffffff';
                 } catch (e) {
-                  document.documentElement.setAttribute('data-theme', 'light');
+                  console.error('Theme initialization error:', e);
                 }
               })();
             `
@@ -68,18 +67,14 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <div className="stars"></div>
-        <ThemeProvider>
-          <AuthProvider>
-            <Navbar />
-            
-            <main className="min-h-screen">
-              {children}
-            </main>
-            
-            <Footer />
-            <DevTools />
-          </AuthProvider>
-        </ThemeProvider>
+        <Navbar />
+        
+        <main style={{ minHeight: '100vh' }}>
+          {children}
+        </main>
+        
+        <Footer />
+        <DevTools />
       </body>
     </html>
   )
