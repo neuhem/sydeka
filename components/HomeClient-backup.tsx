@@ -99,9 +99,6 @@ export default function HomeClient() {
                 <li>Statistical Distributions</li>
                 <li>Hypothesis Testing</li>
                 <li>Mechanics & Projectile Motion</li>
-                <li>Complex Numbers</li>
-                <li>Parametric Equations</li>
-                <li>Vectors & 3D Geometry</li>
               </ul>
             </div>
             <div className="ai-image">
@@ -123,9 +120,23 @@ export default function HomeClient() {
           </div>
         </div>
       </section>
+              <li>Parametric Equations</li>
+              <li>Vectors & 3D Geometry</li>
+            </ul>
+          </div>
+          <div className="ai-image">
+            <div className="math-formula-display">
+              <div className="math-formula-item">f(x) = ax² + bx + c</div>
+              <div className="math-formula-item">∫ f(x) dx</div>
+              <div className="math-formula-item">sin²θ + cos²θ = 1</div>
+              <div>H₀: μ = μ₀</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* AI Mentor Section */}
-      <section className="features">
+      <section className="features ai-section-bg">
         <div className="container">
           <h2 className="section-title">AI-Powered Learning Revolution</h2>
           <div className="features-grid">
@@ -158,26 +169,22 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="ai-section">
+      {/* Call to Action */}
+      <section className="cta">
         <div className="container">
-          <div style={{ textAlign: 'center' }}>
-            <h2>Ready to Excel in A-Level Mathematics?</h2>
-            <p>Join thousands of students achieving their A-Level Mathematics goals with our comprehensive platform.</p>
-            <div style={{ marginTop: '2rem' }}>
-              {user ? (
-                <Link href="/dashboard" className="btn btn-primary btn-large">
-                  Continue Learning →
-                </Link>
-              ) : (
-                <Link href="/signup" className="btn btn-primary btn-large">
-                  Get Started Today →
-                </Link>
-              )}
-            </div>
-          </div>
+          <h2>Ready to Excel in A-Level Mathematics?</h2>
+          <p>Join thousands of students achieving their A-Level Mathematics goals with Sydeka.</p>
+          {user ? (
+            <Link href="/dashboard" className="btn btn-primary btn-large">
+              Continue Learning
+            </Link>
+          ) : (
+            <Link href="/signup" className="btn btn-primary btn-large">
+              Start Your Journey Today
+            </Link>
+          )}
         </div>
       </section>
     </div>
   );
-}
+} 

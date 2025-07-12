@@ -2,37 +2,115 @@
 
 This is a [Next.js](https://nextjs.org) project for Sydeka, an AI-powered learning platform that makes world-class knowledge accessible to everyone.
 
-## Getting Started
+## 🚀 Features
 
-First, run the development server:
+- **AI-Generated Content**: Dynamic lesson generation using Google Gemini AI
+- **Interactive Learning**: Practice problems with parameterized variables
+- **MathJax Support**: Full LaTeX math rendering for mathematical expressions
+- **Progress Tracking**: Track lesson completion and quiz scores
+- **Responsive Design**: Modern UI that works on all devices
+- **Module Navigation**: Seamless navigation between modules and lessons
 
+## 📚 Course Structure
+
+The platform supports AQA A-Level Mathematics courses with:
+- **AS Level (Year 1)**: Pure Mathematics 1 & 2, Statistics, Mechanics
+- **A2 Level (Year 2)**: Pure Mathematics 3 & 4, Applied Mathematics modules
+
+## 🛠️ Setup
+
+1. **Clone the repository**:
+```bash
+git clone <repository-url>
+cd sydeka
+```
+
+2. **Install dependencies**:
+```bash
+npm install
+```
+
+3. **Set up environment variables**:
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` and add your API keys:
+```bash
+GEMINI_API_KEY=your_gemini_api_key_here
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. **Run the development server**:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎯 Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Browse Modules**: Navigate to `/modules` to view available AS and A2 level modules
+2. **Generate AI Content**: Click "AI Content" on any module card to generate lessons
+3. **Study Lessons**: Click "View Module" to enter the lesson interface
+4. **Interactive Practice**: Work through parameterized practice problems
+5. **Take Quizzes**: Complete module quizzes to test your understanding
 
-## Learn More
+## 🏗️ Architecture
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js 15 with TypeScript
+- **Styling**: Tailwind CSS
+- **AI Integration**: Google Generative AI (Gemini)
+- **Math Rendering**: MathJax
+- **State Management**: React hooks and context
+- **Type Safety**: Comprehensive TypeScript types
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+sydeka/
+├── app/                 # Next.js app router pages
+├── components/          # Reusable React components
+│   ├── layout/         # Layout components (Navbar, Footer)
+│   ├── sections/       # Page sections (HomePage, LessonPage)
+│   └── ui/             # UI components
+├── lib/                # Utility functions and services
+├── types/              # TypeScript type definitions
+├── styles/             # Global styles
+└── public/             # Static assets
+```
 
-## Deploy on Vercel
+## 🔧 Technology Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **AI**: Google Generative AI
+- **Math**: MathJax
+- **Database**: Supabase (optional)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Key Components
+
+### LessonPage
+The main learning interface featuring:
+- AI-generated lesson content
+- Interactive practice problems
+- Mathematical expressions with LaTeX
+- Progress tracking
+- Quiz integration
+
+### HomePage
+Module overview with:
+- Course structure visualization
+- Progress indicators
+- AI content generation
+- Module navigation
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

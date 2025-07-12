@@ -1,8 +1,8 @@
-# Sydeka Authentication Setup
+# Sydeka Setup Guide
 
 ## Environment Variables
 
-To enable authentication functionality, you need to set up Supabase and configure the following environment variables.
+To enable full functionality, you need to set up both Supabase and Google Gemini AI.
 
 ### 1. Create a Supabase Project
 
@@ -21,20 +21,29 @@ From your Supabase project dashboard:
    - **anon/public key** (under "Project API keys")
    - **service_role key** (under "Project API keys") - Keep this secret!
 
-### 3. Set Environment Variables
+### 3. Set Up Google Gemini AI
+
+1. Go to [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+2. Create a new API key for Google Gemini
+3. Copy the API key (keep it secure!)
+
+### 4. Set Environment Variables
 
 Create a `.env.local` file in the `sydeka` directory with the following content:
 
 ```env
+# Google Gemini AI API Key
+GEMINI_API_KEY=your_gemini_api_key_here
+
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url_here
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
 ```
 
-**Important:** Replace the placeholder values with your actual Supabase credentials.
+**Important:** Replace the placeholder values with your actual credentials.
 
-### 4. Configure Supabase Authentication
+### 5. Configure Supabase Authentication
 
 In your Supabase dashboard:
 
@@ -45,9 +54,32 @@ In your Supabase dashboard:
 3. Enable email confirmations if desired
 4. Configure any additional auth providers (Google, GitHub, etc.) if needed
 
-### 5. Test the Authentication
+### 6. Test the Features
 
 1. Start your development server: `npm run dev`
+2. Navigate to `/modules` to see the course structure
+3. Click "AI Content" on any module to generate lessons
+4. Click "View Module" to enter the interactive lesson interface
+
+## 🎯 New Features in LessonPage
+
+### AI-Generated Content
+- Dynamic lesson generation with Google Gemini
+- Mathematical expressions with LaTeX support
+- Interactive practice problems
+- Comprehensive quizzes
+
+### Interactive Learning
+- Parameterized practice problems
+- Step-by-step solution reveals
+- Progress tracking and scoring
+- MathJax rendering for mathematical expressions
+
+### Navigation
+- Seamless module-to-lesson navigation
+- Lesson navigation within modules
+- Back to modules functionality
+- Progress persistence
 2. Navigate to `http://localhost:3000`
 3. Try signing up with a new account
 4. Check your email for verification (if enabled)

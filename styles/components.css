@@ -92,3 +92,47 @@
 .ai-section-bg {
   background: #f8fafc;
 }
+
+/* Dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem;
+  background-color: #e5e7eb;
+  color: #374151;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 1.2rem;
+}
+
+.dark .theme-toggle {
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+.theme-toggle:hover {
+  background-color: #d1d5db;
+}
+
+.dark .theme-toggle:hover {
+  background-color: #4b5563;
+}
+
+/* Ensure smooth transitions */
+* {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}

@@ -72,3 +72,46 @@ export interface GenerateQuizParams {
   questionCount: number
   difficulty: 'foundation' | 'intermediate' | 'advanced'
 }
+
+export interface Module {
+  id: string
+  title: string
+  description: string
+  level: 'AS' | 'A2'
+  topics: string[]
+  estimatedDuration: number // in hours
+}
+
+export interface UserProgress {
+  [moduleId: string]: {
+    lessonsCompleted: number
+    quizScore: number | null
+    lastAccessed?: Date
+  }
+}
+
+export interface GeneratedModuleContent {
+  lessons: Array<{
+    title: string
+    content: string
+    examples: Array<{
+      problem: string
+      solution: string
+    }>
+    practiceProblems: Array<{
+      problemTemplate: string
+      solutionTemplate: string[]
+      parameters: Array<{
+        name: string
+        min: number
+        max: number
+      }>
+    }>
+  }>
+  quiz: Array<{
+    question: string
+    options: string[]
+    correctAnswerIndex: number
+    explanation: string
+  }>
+}
