@@ -303,7 +303,7 @@ export default function LessonsClient({ lessons }: LessonsClientProps) {
             <button 
               onClick={() => window.location.href = '/lessons'}
               style={{
-                background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+                background: '#dc2626',
                 color: 'white',
                 padding: '0.75rem 1.5rem',
                 borderRadius: '0.5rem',
@@ -417,7 +417,7 @@ export default function LessonsClient({ lessons }: LessonsClientProps) {
                   href={`/lessons/${lesson.slug}`}
                   style={{
                     display: 'inline-block',
-                    background: 'linear-gradient(135deg, #dc2626, #991b1b)',
+                    background: '#dc2626',
                     color: 'white',
                     padding: '0.75rem 1.5rem',
                     borderRadius: '0.5rem',

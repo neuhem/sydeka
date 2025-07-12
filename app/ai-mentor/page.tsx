@@ -66,7 +66,7 @@ export default function AIMentor() {
           </div>
           
           <div style={{
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+            background: 'rgba(220, 38, 38, 0.1)',
             borderRadius: '1rem',
             padding: '3rem',
             textAlign: 'center',
@@ -119,7 +119,7 @@ export default function AIMentor() {
             href="/lessons"
             style={{
               display: 'inline-block',
-              background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+              background: '#dc2626',
               color: 'white',
               padding: '1rem 2rem',
               borderRadius: '0.5rem',
@@ -127,7 +127,7 @@ export default function AIMentor() {
               fontWeight: '600',
               fontSize: '1.1rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+              boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)'
             }}
           >
             Try AI Mentor Now →

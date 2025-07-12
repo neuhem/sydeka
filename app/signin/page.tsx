@@ -155,7 +155,7 @@ export default function SignIn() {
               disabled={loading}
               style={{
                 padding: '1rem 2rem',
-                background: loading ? 'rgba(100, 116, 139, 0.5)' : 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                background: loading ? 'rgba(100, 116, 139, 0.5)' : '#dc2626',
                 color: 'white',
                 border: 'none',
                 borderRadius: '0.5rem',

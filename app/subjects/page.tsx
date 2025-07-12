@@ -121,7 +121,7 @@ export default function Subjects() {
                 href={`/subjects/${subject.name.toLowerCase().replace(' ', '-')}`}
                 style={{
                   display: 'inline-block',
-                  background: `linear-gradient(135deg, ${subject.color}, ${subject.color}dd)`,
+                  background: subject.color,
                   color: 'white',
                   padding: '0.75rem 1.5rem',
                   borderRadius: '0.5rem',

@@ -199,7 +199,7 @@ export default function SignUp() {
               disabled={loading}
               style={{
                 padding: '1rem 2rem',
-                background: loading ? 'rgba(100, 116, 139, 0.5)' : 'linear-gradient(135deg, #10b981, #059669)',
+                background: loading ? 'rgba(100, 116, 139, 0.5)' : '#dc2626',
                 color: 'white',
                 border: 'none',
                 borderRadius: '0.5rem',
@@ -207,7 +207,7 @@ export default function SignUp() {
                 fontWeight: '600',
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: loading ? 'none' : '0 4px 12px rgba(16, 185, 129, 0.3)'
+                boxShadow: loading ? 'none' : '0 4px 12px rgba(220, 38, 38, 0.3)'
               }}
             >
               {loading ? 'Creating Account...' : 'Create Account'}

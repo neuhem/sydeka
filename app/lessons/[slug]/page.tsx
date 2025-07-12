@@ -276,7 +276,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <div style={{
           marginTop: '3rem',
           padding: '1.5rem',
-          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(55, 65, 81, 0.8))',
+          background: 'rgba(17, 24, 39, 0.8)',
           borderRadius: '0.5rem',
           border: '1px solid rgba(75, 85, 99, 0.3)'
         }}>
